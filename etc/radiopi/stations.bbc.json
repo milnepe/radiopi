@@ -1,0 +1,70 @@
+{
+  "London,UK": {
+    "coords": {
+      "n": 51.5,
+      "e": -0.12
+    },
+    "urls": [
+      {
+        "name": "BBC Radio 1",
+        "url": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_one.m3u8"
+      },
+      {
+        "name": "BBC Radio 1xtra",
+        "url": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_1xtra.m3u8"
+      },
+      {
+        "name": "BBC Radio 2",
+        "url": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_two.m3u8"
+      },      
+      {
+        "name": "BBC Radio 3",
+        "url": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_three.m3u8"
+      },
+      {
+        "name": "BBC Radio 4",
+        "url": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_fourfm.m3u8"
+      },
+      {
+        "name": "BBC Radio 4LW",
+        "url": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_fourlw.m3u8"
+      },
+      {
+        "name": "BBC Radio 4 Extra",
+        "url": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_four_extra.m3u8"
+      },
+      {
+        "name": "BBC Radio 5 Live",
+        "url": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_five_live.m3u8"
+      },
+      {
+        "name": "BBC Radio 5 Live Sportsball Extra",
+        "url": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_five_live_sports_extra.m3u8"
+      },
+      {
+        "name": "BBC Radio 6",
+        "url": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_6music.m3u8"
+      },
+      {
+        "name": "BBC Asian Network",
+        "url": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_asian_network.m3u8"
+      },
+      {
+        "name": "BBC World Service UK Stream",
+        "url": "http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk"
+      },
+      {
+        "name": "BBC World Service News Stream",
+        "url": "http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws"
+      },
+      {
+        "name": "BBC Radio Oxford",
+        "url": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_lroxford_mf_p"
+      },
+      {
+        "name": "Westside Radio",
+        "url": "http://radio.canstream.co.uk:8002/live.mp3.m3u"
+      }
+    ]
+  }
+}
