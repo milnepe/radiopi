@@ -21,10 +21,12 @@ kernel by adding entries to the device tree in:
 /boot/config.txt
 
 ```#enable rotary encoder
-dtoverlay=rotary-encoder,pin_a=23,pin_b=24,relative_axis=1```
+dtoverlay=rotary-encoder,pin_a=23,pin_b=24,relative_axis=1
+```
 
 ```#enable button
-dtoverlay=gpio-key,gpio=22,keycode=28,label="ENTER"```
+dtoverlay=gpio-key,gpio=22,keycode=28,label="ENTER"
+```
 
 ### Radiopi System
 ![Radiopi System](img/radiopi-1.jpg)
