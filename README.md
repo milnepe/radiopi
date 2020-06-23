@@ -20,11 +20,13 @@ kernel by adding entries to the device tree in:
 
 /boot/config.txt
 
-```#enable rotary encoder
+```
+#enable rotary encoder
 dtoverlay=rotary-encoder,pin_a=23,pin_b=24,relative_axis=1
 ```
 
-```#enable button
+```
+#enable button
 dtoverlay=gpio-key,gpio=22,keycode=28,label="ENTER"
 ```
 
