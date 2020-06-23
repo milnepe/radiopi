@@ -15,18 +15,16 @@ clean-stations.sh - utility for cleaning bad entity codes from station names
 
 
 ## Installation
-Enable the rotary-encoder and button (built-into encoder shaft) in Linux
-kernel by by adding entries to the device tree in: 
+Enable the rotary-encoder and button (built into encoder shaft) in Linux
+kernel by adding entries to the device tree in: 
 
 /boot/config.txt
 
-`#enable rotary encoder
+```#enable rotary encoder
+dtoverlay=rotary-encoder,pin_a=23,pin_b=24,relative_axis=1```
 
-dtoverlay=rotary-encoder,pin_a=23,pin_b=24,relative_axis=1`
-
-`#enable button
-
-dtoverlay=gpio-key,gpio=22,keycode=28,label="ENTER"`
+```#enable button
+dtoverlay=gpio-key,gpio=22,keycode=28,label="ENTER"```
 
 ### Radiopi System
 ![Radiopi System](img/radiopi-1.jpg)
