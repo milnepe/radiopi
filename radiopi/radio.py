@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 
-"""An internet radio player controlled by a rotary-encoder.
+"""A rotary-encoder controlled internet radio player.
 
-The player loads station information from a local configuration file.
+Station information is loaded from a configuration file.
 
-It starts by loading and playing the last station selected. Then presents
-a srollable list of locations, each time the encoder is rotated.
+Starts by playing the last station selected. Then presents
+a scrollable list of countries, each time the encoder is rotated.
 
-Pressing the encoder button selects a location and presents a scrollable
-list of stations for that location.
+Pressing the encoder button selects a country which then presents a
+scrollable list of cities for that country.
+
+Pressing the encoder button selects a city which then presents a
+scrollable list of stations for that city.
 
 Pressing the encoder button again, plays the current station and returns
 to the list of locations. So everything starts over again.
@@ -20,15 +23,10 @@ import evdev
 import select
 from streaming import Streamer
 import argparse
+from countries import get_countries
 
 
-def get_stations_list(location: str) -> list:
-    """Returns a list of radio stations for a given loaction"""
-    urls = stations[location]['urls']
-    return urls
-
-
-def get_encoder_value(value: int, alist: list):
+def get_encoder_value(value: int, alist: list) -> int:
     """Return a value in range of the list. Allows value to wrap round"""
     if value in range(len(alist)):  # increasing values
         value = value
@@ -65,9 +63,10 @@ def parse_command_line_args():
 args = parse_command_line_args()
 
 with Path(args.stations).open(mode='r', encoding='utf-8') as f:
-    stations = json.load(f)
+    stations_dict = json.load(f)
 
-locations = [loc for loc in stations]
+countries_dict = get_countries(sorted(stations_dict))
+countries_list = sorted(countries_dict)
 
 devices = [evdev.InputDevice(fn) for fn in evdev.list_devices()]
 devices = {dev.fd: dev for dev in devices}
@@ -84,11 +83,13 @@ except:
     pass
 
 # initialise stations
-press = 'locations'
+state = 'countries'
 value = 0
+old_country = 0
 old_location = 0
-location = locations[value]
-print(f'Location: {location}')
+country = countries_list[0]
+location = 0
+print(f'Country: {country}')
 
 while True:
     r, w, x = select.select(devices, [], [])
@@ -97,29 +98,40 @@ while True:
             event = evdev.util.categorize(event)
             if isinstance(event, evdev.events.RelEvent):
                 value = value + event.event.value
-                if press == 'locations':  # scroll through locations
+                if state == 'countries':  # scroll through countries
+                    value = get_encoder_value(value, countries_list)
+                    country = countries_list[value]
+                    print(f'Country: {country}')
+                if state == 'locations':  # scroll through locations
                     value = get_encoder_value(value, locations)
                     location = locations[value]
                     print(f'Location: {location}')
-                if press == 'stations':  # scroll through stations
+                if state == 'stations':  # scroll through stations
                     value = get_encoder_value(value, stations_list)
                     station = stations_list[value]
                     name = station.get('name')
                     print(f'Station: {name}')
             elif isinstance(event, evdev.events.KeyEvent):
                 if event.keycode == "KEY_ENTER" and event.keystate == event.key_up:
-                    if press == 'locations':
-                        press = 'stations'
-                        old_location = value
+                    if state == 'countries':
+                        state = 'locations'
+                        old_country = value
+                        value = 0
+                        # grab list of locations
+                        locations = sorted(countries_dict[country])
+                        location = locations[value]
+                        print(f'Location: {location}')
+                    elif state == 'locations':
+                        state = 'stations'
                         value = 0
                         # grab list of stations
-                        stations_list = get_stations_list(location)
-                        station = stations_list[0]
+                        stations_list = stations_dict[location]['urls']
+                        print(stations_list)
+                        station = stations_list[value]
                         name = station.get('name')
                         print(f'Station: {name}')
-                    elif press == 'stations':
-                        press = 'locations'
-                        value = old_location
+                    elif state == 'stations':
+                        state = 'countries'
                         # play the station
                         save_station(station, args.last_station)
                         url = station.get('url')
@@ -130,4 +142,5 @@ while True:
                             pass
                         streamer = Streamer(audio, url)
                         streamer.play()
-                        print(f'Location: {location}')
+                        value = old_country
+                        print(f'Country: {country}')
